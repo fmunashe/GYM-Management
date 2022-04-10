@@ -75,7 +75,7 @@ class RegisterController extends Controller
     {
         $club_id = Club::query()->where('name', 'like', 'WarmFit%')->first()->id;
 
-        if ($data['club_owner']) {
+        if (array_key_exists('club_owner', $data)) {
             $club = Club::query()->create([
                 'name' => $data['club_name'],
                 'location' => $data['location'],

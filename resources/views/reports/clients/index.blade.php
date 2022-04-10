@@ -17,20 +17,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-7">
-                                {{ __('Registered Members') }}
+                                {{ __('Clients subscribed For Training') }}
                             </div>
                             <div class="col-md-5">
-                                <div class="input-group">
-                                    <div class="app-search dropdown d-none d-lg-block">
-                                        <form>
-                                            <div class="input-group">
-                                                <input type="text" name="date_range" class="form-control dropdown-toggle" placeholder="Search..."
-                                                       id="top-search"  data-toggle="date-picker" data-cancel-class="btn-warning">
-                                                <button class="input-group-text btn-primary" type="submit"> <span class="mdi mdi-magnify"></span>Search</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -44,29 +34,32 @@
                         <table class="table table-striped table-sm">
                             <tr>
                                 <th>#</th>
+                                <th>Trainer</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Gender</th>
-                                <th>DOB</th>
                                 <th>Joining Date</th>
+                                <th>Subscription Status</th>
                             </tr>
-                            @foreach($members as $user)
+                            @foreach($clients as $client)
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->mobile}}</td>
-                                    <td>{{$user->gender}}</td>
-                                    <td>{{$user->dob}}</td>
-                                    <td>{{$user->joining_date}}</td>
+                                    <td>{{$client->id}}</td>
+                                    <td>{{$client->trainer->name}}</td>
+                                    <td>{{$client->user->name}}</td>
+                                    <td>{{$client->user->email}}</td>
+                                    <td>{{$client->user->mobile}}</td>
+                                    <td>{{$client->user->gender}}</td>
+                                    <td>{{$client->user->joining_date}}</td>
+                                    <td>{{$client->user->subscription_status}}</td>
                                 </tr>
                             @endforeach
                         </table>
-                        {{$members->links()}}
+                        {{$clients->links()}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection

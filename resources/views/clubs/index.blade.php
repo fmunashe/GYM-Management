@@ -16,8 +16,12 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Registered Clubs') }}
-                        <a href="" class="btn btn-success float-end" data-bs-toggle="modal"
-                           data-bs-target="#standard-modal"><i class="mdi mdi-pencil-plus"></i> Create Club</a>
+                        @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)   <a href=""
+                                                                                            class="btn btn-success float-end"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#standard-modal"><i
+                                class="mdi mdi-pencil-plus"></i> Create Club</a>
+                        @endif
                     </div>
 
                     <div class="card-body text-center">
@@ -32,7 +36,9 @@
                                 <th>Club Name</th>
                                 <th>Description</th>
                                 <th>Location</th>
+                                @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                 <th class="text-center" colspan="3">Action</th>
+                                    @endif
                             </tr>
                             @foreach($clubs as $club)
                                 <tr>
@@ -40,7 +46,7 @@
                                     <td>{{$club->name}}</td>
                                     <td>{{$club->description}}</td>
                                     <td>{{$club->location}}</td>
-
+                                    @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                     <td>
                                         <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#show_club_modal_{{$club->id}}">
@@ -62,6 +68,8 @@
                                         </button>
                                         @include('clubs.delete_club_modal')
                                     </td>
+                                    @endif
+
                                 </tr>
                             @endforeach
                         </table>

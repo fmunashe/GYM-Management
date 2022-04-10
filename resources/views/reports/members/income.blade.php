@@ -17,7 +17,8 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-7">
-                                {{ __('Registered Members') }}
+                                {{ __('Income Per Month') }}
+                                <span>Total Income for the specified Period is :  {{"$ ".number_format($total)}}</span>
                             </div>
                             <div class="col-md-5">
                                 <div class="input-group">
@@ -44,26 +45,28 @@
                         <table class="table table-striped table-sm">
                             <tr>
                                 <th>#</th>
+                                <th>Plan</th>
+                                <th>Amount</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Gender</th>
-                                <th>DOB</th>
-                                <th>Joining Date</th>
+                                <th>mobile</th>
+                                <th>Payment Date</th>
+                                <th>Payment Expiry Date</th>
                             </tr>
-                            @foreach($members as $user)
+                            @foreach($incomes as $income)
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->mobile}}</td>
-                                    <td>{{$user->gender}}</td>
-                                    <td>{{$user->dob}}</td>
-                                    <td>{{$user->joining_date}}</td>
+                                    <td>{{$income->id}}</td>
+                                    <td>{{$income->plan->plan_name}}</td>
+                                    <td>{{$income->plan->amount}}</td>
+                                    <td>{{$income->user->name}}</td>
+                                    <td>{{$income->user->email}}</td>
+                                    <td>{{$income->user->mobile}}</td>
+                                    <td>{{$income->payment_date}}</td>
+                                    <td>{{$income->payment_expiry_date}}</td>
                                 </tr>
                             @endforeach
                         </table>
-                        {{$members->links()}}
+                        {{$incomes->links()}}
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\SubscriptionStatus;
+use App\Enums\UserTypeEnum;
 use App\Enums\ValidityPeriodEnum;
 use App\Models\Payment;
 use App\Models\Plan;
@@ -133,6 +134,11 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
+        if ($payment->user_id != auth()->user()->id && auth()->user()->user_type != UserTypeEnum::ADMIN) {
+
+            Alert::error('Payment Status', 'You have no permission to delete this record');
+            return redirect()->route('health-status');
+        }
         if ($payment->payment_expiry_date > Carbon::now()) {
             User::query()->where('id', $payment->user_id)->update([
                 'subscription_status' => SubscriptionStatus::IN_ACTIVE

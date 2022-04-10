@@ -58,7 +58,7 @@
                         @enderror
                     </div>
 
-                    @if(!auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
+                    @if(!auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)
                         <div class="mb-1 col">
                             <label for="user_id" class="form-label">Client</label>
                             <select name="user_id" class="form-control @error('user_id') is-invalid @enderror"
@@ -75,7 +75,7 @@
                         <div class="mb-1">
                             <label for="height" class="form-label">Client search</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search..."
+                                <input type="text" class="form-control" placeholder="Search by client name..."
                                        id="client_search">
                                 <button class="input-group-text btn-success mr-2" id="client_search_btn" type="button">
                                     Search

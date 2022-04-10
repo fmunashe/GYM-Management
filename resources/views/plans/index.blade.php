@@ -14,8 +14,10 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Membership Plans') }}
+                        @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                         <a href="" class="btn btn-success float-end" data-bs-toggle="modal"
                            data-bs-target="#standard-modal"><i class="mdi mdi-pencil-plus"></i> Create Membership Plan</a>
+                            @endif
                     </div>
 
                     <div class="card-body text-center">
@@ -50,6 +52,7 @@
                                         </button>
                                         @include('plans.show_plan_modal')
                                     </td>
+                                    @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                     <td>
                                         <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#edit_plan_modal_{{$plan->id}}">
@@ -64,6 +67,7 @@
                                         </button>
                                         @include('plans.delete_plan_modal')
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </table>

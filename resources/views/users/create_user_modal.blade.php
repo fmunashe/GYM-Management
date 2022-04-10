@@ -110,7 +110,7 @@
 
                             <input id="dash-daterange" type="text"
                                    class="form-control @error('dob') is-invalid @enderror" name="dob"
-                                   value="{{ old('dob') }}" autocomplete="dob" autofocus>
+                                   value="{{ old('dob') }}" autocomplete="dob" autofocus placeholder="01 (month) /24 (day) /1995 (year)">
 
                             @error('dob')
                             <span class="invalid-feedback" role="alert">

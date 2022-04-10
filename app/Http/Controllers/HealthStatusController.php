@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SubscriptionStatus;
 use App\Enums\UserTypeEnum;
 use App\Models\HealthStatus;
 use App\Models\User;
@@ -18,19 +19,10 @@ class HealthStatusController extends Controller
     public function index()
     {
         $statuses = HealthStatus::query()->latest()->paginate(10);
-        $trainers=User::query()->where('user_type',UserTypeEnum::TRAINER)->get();
-        return view('health_status.index', compact('statuses','trainers'));
+        $trainers = User::query()->where('user_type', UserTypeEnum::TRAINER)->get();
+        return view('health_status.index', compact('statuses', 'trainers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,32 +32,18 @@ class HealthStatusController extends Controller
      */
     public function store(Request $request)
     {
+        $client = User::query()->where('id', $request->input('user_id'))->first();
+
+        if ($client->subscription_status != SubscriptionStatus::ACTIVE) {
+            Alert::error('Health Status Error', 'You need to have an active subscription to perform this action. Please make a payment to activate your subscription.')->autoClose(false);
+            return redirect()->route('health-status');
+        }
+
         HealthStatus::query()->create($request->all());
         Alert::success('Health Status', 'Health Status Successfully Recorded');
         return redirect()->route('health-status');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\HealthStatus $healthStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function show(HealthStatus $healthStatus)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\HealthStatus $healthStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(HealthStatus $healthStatus)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -76,6 +54,11 @@ class HealthStatusController extends Controller
      */
     public function update(Request $request, HealthStatus $healthStatus)
     {
+        if ($healthStatus->user_id != auth()->user()->id && auth()->user()->user_type != UserTypeEnum::ADMIN && $healthStatus->trainer_id != auth()->user()->id) {
+
+            Alert::error('Health Status', 'You have no permission to update this record');
+            return redirect()->route('health-status');
+        }
         $healthStatus->update($request->all());
         Alert::success('Health Status', 'Health Status Successfully Updated');
         return redirect()->route('health-status');
@@ -89,6 +72,12 @@ class HealthStatusController extends Controller
      */
     public function destroy(HealthStatus $healthStatus)
     {
+
+        if ($healthStatus->user_id != auth()->user()->id && auth()->user()->user_type != UserTypeEnum::ADMIN && $healthStatus->trainer_id != auth()->user()->id) {
+
+            Alert::error('Health Status', 'You have no permission to delete this record');
+            return redirect()->route('health-status');
+        }
         $healthStatus->delete();
         Alert::success('Health Status', 'Health Status Record Successfully Deleted');
         return redirect()->route('health-status');

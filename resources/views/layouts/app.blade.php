@@ -49,20 +49,22 @@
                 <hr>
 
                 <li class="side-nav-item">
-                    <a href="{{route('home')}}" aria-expanded="false"
+                    <a href="{{auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ? route('admin.home'):route('home')}}"
+                       aria-expanded="false"
                        aria-controls="sidebarDashboards" class="side-nav-link">
                         <i class="uil-home-alt"></i>
                         <span> Dashboards </span>
                     </a>
-
                 </li>
 
-                <li class="side-nav-item">
-                    <a href="{{route('adverts')}}" class="side-nav-link">
-                        <i class="uil-shopping-cart-alt"></i>
-                        <span> Adverts </span>
-                    </a>
-                </li>
+                @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
+                    <li class="side-nav-item">
+                        <a href="{{route('adverts')}}" class="side-nav-link">
+                            <i class="uil-shopping-cart-alt"></i>
+                            <span> Adverts </span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="side-nav-item">
                     <a href="{{route('plans')}}" class="side-nav-link">
@@ -101,27 +103,36 @@
                     </a>
                 </li>
 
-                <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#reports" aria-expanded="false"
-                       aria-controls="sidebarEcommerce" class="side-nav-link">
-                        <i class="uil-graph-bar"></i>
-                        <span> Reports </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="reports">
-                        <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{route('members')}}">Members Month / Year</a>
-                            </li>
-                            <li>
-                                <a href="apps-ecommerce-products-details.html">Members Per Year</a>
-                            </li>
-                            <li>
-                                <a href="apps-ecommerce-orders.html">Income Per Month</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ||auth()->user()->user_type==\App\Enums\UserTypeEnum::TRAINER)
+                    <li class="side-nav-item">
+                        <a data-bs-toggle="collapse" href="#reports" aria-expanded="false"
+                           aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <i class="uil-graph-bar"></i>
+                            <span> Reports </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="reports">
+                            <ul class="side-nav-second-level">
+                                @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
+                                    <li>
+                                        <a href="{{route('members')}}">Members Month / Year</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('income')}}">Income Per Month</a>
+                                    </li>
+                                @endif
+                                <li>
+                                    <a href="{{route('training-clients')}}">Training Clients</a>
+                                </li>
+                                @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
+                                    <li>
+                                        <a href="{{route('audits')}}">Audit Report</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </li>
+                @endif
 
             </ul>
 
@@ -225,7 +236,7 @@
 
             @include('layouts.adverts_section')
 
-                <!-- end page title -->
+            <!-- end page title -->
 
                 <div class="row">
                     @include('sweetalert::alert')

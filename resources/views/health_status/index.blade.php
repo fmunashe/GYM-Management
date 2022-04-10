@@ -40,7 +40,7 @@
                                 <th class="text-center" colspan="3">Action</th>
                             </tr>
                             @foreach($statuses as $status)
-                                <tr>
+                                <tr  class="{{((auth()->user()->id==$status->user_id && auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)||(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)||(auth()->user()->id==$status->trainer_id))?'':'d-none'}}">
                                     <td>{{$status->id}}</td>
                                     <td>{{$status->user->name}}</td>
                                     <td>{{$status->trainer->name}}</td>
