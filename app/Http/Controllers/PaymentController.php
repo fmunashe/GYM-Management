@@ -54,7 +54,7 @@ class PaymentController extends Controller
         $check_payment = Payment::query()->where('user_id', $user_id)->latest()->first();
         if ($check_payment) {
             if ($check_payment->payment_expiry_date > Carbon::now()) {
-                Alert::error('Payment Status', 'Payment could not be made. Client ' . $check_payment->user->name . ' has an active ' . $check_payment->plan->plan_name . ' subscription which expires on ' . $check_payment->payment_expiry_date)->autoClose(false);;
+                Alert::error('Payment Status Error', 'Payment could not be made. Client ' . $check_payment->user->name . ' has an active ' . $check_payment->plan->plan_name . ' subscription which expires on ' . $check_payment->payment_expiry_date)->autoClose(false);;
                 return redirect()->route('payments');
             }
         }

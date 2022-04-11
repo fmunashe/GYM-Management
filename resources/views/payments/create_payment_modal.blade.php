@@ -58,7 +58,7 @@
                         @enderror
                     </div>
 
-                    @if(!auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)
+                    @if(auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)
                         <div class="mb-1 col">
                             <label for="user_id" class="form-label">Client</label>
                             <select name="user_id" class="form-control @error('user_id') is-invalid @enderror"
