@@ -96,12 +96,14 @@
                         <span>Payments </span>
                     </a>
                 </li>
+                @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                 <li class="side-nav-item">
                     <a href="{{route('users')}}" class="side-nav-link">
                         <i class="uil-users-alt"></i>
                         <span>Members </span>
                     </a>
                 </li>
+                @endif
 
                 @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ||auth()->user()->user_type==\App\Enums\UserTypeEnum::TRAINER)
                     <li class="side-nav-item">

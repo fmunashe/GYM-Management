@@ -25,6 +25,10 @@
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
+                        @elseif(session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
                         @endif
                         <table class="table table-striped table-sm">
                             <tr>
@@ -53,13 +57,13 @@
                                         </button>
                                         @include('payments.show_payment_modal')
                                     </td>
-{{--                                    <td>--}}
-{{--                                        <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"--}}
-{{--                                                data-bs-target="#edit_payment_modal_{{$payment->id}}">--}}
-{{--                                            <i class="uil-pen"></i>&nbsp;Edit--}}
-{{--                                        </button>--}}
-{{--                                        @include('payments.edit_payment_modal')--}}
-{{--                                    </td>--}}
+                                    {{--                                    <td>--}}
+                                    {{--                                        <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"--}}
+                                    {{--                                                data-bs-target="#edit_payment_modal_{{$payment->id}}">--}}
+                                    {{--                                            <i class="uil-pen"></i>&nbsp;Edit--}}
+                                    {{--                                        </button>--}}
+                                    {{--                                        @include('payments.edit_payment_modal')--}}
+                                    {{--                                    </td>--}}
                                     <td>
                                         <button class="btn btn-danger btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#delete_payment_modal_{{$payment->id}}">

@@ -65,7 +65,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin', 'auth']], functi
 });
 
 
-Route::group(['prefix' => 'generic', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'generic', 'middleware' => ['auth','payment_expired']], function () {
     Route::post('/save-routine', [TimeTableController::class, 'store'])->name('save-routine');
     Route::get('/clubs', [ClubController::class, 'index'])->name('clubs');
     Route::get('/plans', [PlanController::class, 'index'])->name('plans');
@@ -76,7 +76,9 @@ Route::group(['prefix' => 'generic', 'middleware' => ['auth']], function () {
     Route::post('/save-health-status', [HealthStatusController::class, 'store'])->name('save-health-status');
     Route::delete('/delete-health-status/{healthStatus}', [HealthStatusController::class, 'destroy'])->name('delete-health-status');
     Route::put('/health-status-update/{healthStatus}', [HealthStatusController::class, 'update'])->name('update-health-status');
+});
 
+Route::group(['prefix' => 'payments', 'middleware' => ['auth']], function () {
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
     Route::post('/save-payment', [PaymentController::class, 'store'])->name('save-payment');
     Route::delete('/delete-payment/{payment}', [PaymentController::class, 'destroy'])->name('delete-payment');
