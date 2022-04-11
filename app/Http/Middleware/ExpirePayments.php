@@ -27,6 +27,9 @@ class ExpirePayments
         if (auth()->user()->subscription_status == SubscriptionStatus::ACTIVE) {
             $latest_payment = Payment::query()->where('user_id', auth()->user()->id)->latest()->first();
             if (!$latest_payment) {
+                User::query()->where('id', auth()->user()->id)->update([
+                    'subscription_status' => SubscriptionStatus::IN_ACTIVE
+                ]);
                 return redirect()->route('payments')->with('error', "You don't have an active subscription. Please make a payment to activate your profile");
             }
             if (($latest_payment->payment_expiry_date) < Carbon::now()) {
