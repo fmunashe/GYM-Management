@@ -22,13 +22,11 @@
             <div class="container-fluid">
                 @include('layouts.adverts_section')
                 <div class="row">
-                    @include('sweetalert::alert')
                     @yield('content')
                 </div>
             </div>
         </div>
         @include('layouts.footer')
-
     </div>
 </div>
 @include('layouts.settings')
