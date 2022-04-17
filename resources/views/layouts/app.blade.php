@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>Dashboard | Hyper</title>
+    <title>Dashboard | WarmFit</title>
     @include('layouts.header')
 </head>
 <body class="loading"
