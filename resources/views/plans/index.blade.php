@@ -79,7 +79,16 @@
     </div>
 
     @include('plans.create_plan_modal')
-
-
-
+@endsection
+@section('javascripts')
+    <script>
+        tinymce.init({
+            selector: '#descriptions',
+            plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+            toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: '{{auth()->user()->name}}',
+        });
+    </script>
 @endsection

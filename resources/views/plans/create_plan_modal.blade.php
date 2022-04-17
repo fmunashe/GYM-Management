@@ -26,7 +26,7 @@
                     </div>
                     <div class="mb-1">
                         <label for="description" class="form-label">Description</label>
-                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" autocomplete="description" autofocus>{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" autocomplete="description" autofocus>{{ old('description') }}</textarea>
                         @error('description')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -78,3 +78,4 @@
         </div>
     </div>
 </div>
+
