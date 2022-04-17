@@ -6,6 +6,7 @@ use App\Models\Club;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -17,8 +18,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()->with(['address', 'healthStatus', 'club', 'payment'])->latest()->paginate('10');
-        $clubs = Club::all();
+
+        $users = cache('users', function () {
+            return User::query()->with(['address', 'healthStatus', 'club', 'payment'])->latest()->paginate('10');
+        });
+        $clubs = cache('clubs', function () {
+            return Club::all();
+        });
+
         return view('users.index', compact('users', 'clubs'));
 
     }
