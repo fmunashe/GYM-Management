@@ -34,6 +34,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Client</th>
+                                <th>Club</th>
                                 <th>Membership Plan</th>
                                 <th>Validity</th>
                                 <th>Amount</th>
@@ -44,7 +45,8 @@
                             @foreach($payments as $payment)
                                 <tr class="{{((auth()->user()->id==$payment->user_id && auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)||auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)?'':'d-none'}}">
                                     <td>{{$payment->id}}</td>
-                                    <td>{{$payment->user->name}}</td>
+                                    <td>{{$payment->user?$payment->user->name:""}}</td>
+                                    <td>{{$payment->user?$payment->user->club->name:""}}</td>
                                     <td>{{$payment->plan->plan_name}}</td>
                                     <td>{{$payment->plan->validity_period}}</td>
                                     <td>{{$payment->plan->amount}}</td>

@@ -23,7 +23,14 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::query()->with(['user', 'plan'])->latest()->paginate(10);
+
+        $payments = Payment::query()->with(['user', 'plan'])->whereHas('user',function ($query){
+            $query->where('club_id', auth()->user()->club->id);
+        })->latest()->paginate(10);
+
+        if (auth()->user()->club->name == "WarmFit") {
+            $payments = Payment::query()->with(['user', 'plan'])->latest()->paginate(10);
+        }
         $plans = Plan::all();
         return view('payments.index', compact('payments', 'plans'));
 
@@ -152,7 +159,10 @@ class PaymentController extends Controller
 
     public function searchClient($search)
     {
-        $users = User::query()->where('name', 'like', '%' . $search . '%')->get();
+        $users = User::query()->where('name', 'like', '%' . $search . '%')->where('club_id', auth()->user()->club->id)->get();
+        if (auth()->user()->club->name == 'WarmFit') {
+            $users = User::query()->where('name', 'like', '%' . $search . '%')->get();
+        }
         return response()->json(['users' => $users]);
     }
 

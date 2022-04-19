@@ -25,9 +25,13 @@
                                     <div class="app-search dropdown d-none d-lg-block">
                                         <form>
                                             <div class="input-group">
-                                                <input type="text" name="date_range" class="form-control dropdown-toggle" placeholder="Search..."
-                                                       id="top-search"  data-toggle="date-picker" data-cancel-class="btn-warning">
-                                                <button class="input-group-text btn-primary" type="submit"> <span class="mdi mdi-magnify"></span>Search</button>
+                                                <input type="text" name="date_range"
+                                                       class="form-control dropdown-toggle" placeholder="Search..."
+                                                       id="top-search" data-toggle="date-picker"
+                                                       data-cancel-class="btn-warning">
+                                                <button class="input-group-text btn-primary" type="submit"><span
+                                                        class="mdi mdi-magnify"></span>Search
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -48,17 +52,19 @@
                                 <th>Plan</th>
                                 <th>Amount</th>
                                 <th>Name</th>
+                                <th>Club</th>
                                 <th>Email</th>
                                 <th>mobile</th>
                                 <th>Payment Date</th>
                                 <th>Payment Expiry Date</th>
                             </tr>
                             @foreach($incomes as $income)
-                                <tr>
+                                <tr class="@if($income->user->club->id == auth()->user()->club->id) @elseif(auth()->user()->club->name=='WarmFit')  @else d-none @endif">
                                     <td>{{$income->id}}</td>
                                     <td>{{$income->plan->plan_name}}</td>
                                     <td>{{$income->plan->amount}}</td>
                                     <td>{{$income->user->name}}</td>
+                                    <td>{{$income->user->club->name}}</td>
                                     <td>{{$income->user->email}}</td>
                                     <td>{{$income->user->mobile}}</td>
                                     <td>{{$income->payment_date}}</td>

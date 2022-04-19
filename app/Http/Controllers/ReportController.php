@@ -21,13 +21,19 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
-        $members = User::query()->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->latest()->paginate(10);
+        $members = User::query()->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->where('club_id', auth()->user()->club->id)->latest()->paginate(10);
+        if (auth()->user()->club->name == 'WarmFit') {
+            $members = User::query()->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->latest()->paginate(10);
+        }
         $date_range = $request->query('date_range');
         if ($date_range) {
             $date = explode('-', $date_range);
             $start = Carbon::createFromDate($date[0])->startOfDay()->format('Y-m-d H:i:s');
             $end = Carbon::createFromDate($date[1])->endOfDay()->format('Y-m-d H:i:s');
-            $members = User::query()->whereBetween('created_at', [$start, $end])->latest()->paginate(10);
+            $members = User::query()->whereBetween('created_at', [$start, $end])->where('club_id', auth()->user()->club->id)->latest()->paginate(10);
+            if (auth()->user()->club->name == 'WarmFit') {
+                $members = User::query()->whereBetween('created_at', [$start, $end])->latest()->paginate(10);
+            }
         }
         return view('reports.members.index', compact('members'));
 
@@ -129,8 +135,13 @@ class ReportController extends Controller
         }
         $total = 0;
         foreach ($incomes as $inco) {
-            $total += $inco->plan->amount;
+            if (auth()->user()->club->name == 'WarmFit') {
+                $total += $inco->plan->amount;
+            } else {
+                $total += $inco->user->club->id == auth()->user()->club->id ? $inco->plan->amount : 0;
+            }
         }
+
 
         return view('reports.members.income', compact('incomes', 'total'));
     }

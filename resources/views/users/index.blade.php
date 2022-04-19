@@ -29,6 +29,7 @@
                         <table class="table table-striped table-sm">
                             <tr>
                                 <th>#</th>
+                                <th>Club</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
@@ -38,6 +39,7 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
+                                    <td>{{$user->club?$user->club->name:""}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->mobile}}</td>

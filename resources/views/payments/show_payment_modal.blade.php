@@ -20,19 +20,19 @@
                 <table class="table table-sm">
                     <tr>
                         <td>Client Name :</td>
-                        <td>{{$payment->user->name}}</td>
+                        <td>{{$payment->user?$payment->user->name:""}}</td>
                     </tr>
                     <tr>
                         <td>Membership Plan :</td>
-                        <td>{{$payment->plan->plan_name}}</td>
+                        <td>{{$payment->plan?$payment->plan->plan_name:""}}</td>
                     </tr>
                     <tr>
                         <td>Validity Period :</td>
-                        <td>{{$payment->plan->validity_period}}</td>
+                        <td>{{$payment->plan?$payment->plan->validity_period:""}}</td>
                     </tr>
                     <tr>
                         <td>Amount :</td>
-                        <td>{{$payment->plan->amount}}</td>
+                        <td>{{$payment->plan?$payment->plan->amount:""}}</td>
                     </tr>
                     <tr>
                         <td>Payment Date :</td>

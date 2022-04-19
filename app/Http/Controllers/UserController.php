@@ -19,8 +19,10 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::query()->with(['address', 'healthStatus', 'club', 'payment'])->latest()->paginate('10');
-
+        $users = User::query()->with(['address', 'healthStatus', 'club', 'payment'])->where('club_id', auth()->user()->club->id)->latest()->paginate('10');
+        if (auth()->user()->club->name == 'WarmFit') {
+            $users = User::query()->with(['address', 'healthStatus', 'club', 'payment'])->latest()->paginate('10');
+        }
         $clubs = Club::all();
 
         return view('users.index', compact('users', 'clubs'));
