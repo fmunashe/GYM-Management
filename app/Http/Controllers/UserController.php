@@ -19,12 +19,9 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = cache('users', function () {
-            return User::query()->with(['address', 'healthStatus', 'club', 'payment'])->latest()->paginate('10');
-        });
-        $clubs = cache('clubs', function () {
-            return Club::all();
-        });
+        $users = User::query()->with(['address', 'healthStatus', 'club', 'payment'])->latest()->paginate('10');
+
+        $clubs = Club::all();
 
         return view('users.index', compact('users', 'clubs'));
 
