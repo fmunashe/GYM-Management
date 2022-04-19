@@ -24,6 +24,9 @@ class ExpirePayments
         if (auth()->user()->subscription_status == SubscriptionStatus::IN_ACTIVE) {
             return redirect()->route('payments')->with('error', "You don't have an active subscription. Please make a payment to activate your profile");
         }
+        if (auth()->user()->user_type == UserTypeEnum::ADMIN) {
+            return $next($request);
+        }
         if (auth()->user()->subscription_status == SubscriptionStatus::ACTIVE) {
             $latest_payment = Payment::query()->where('user_id', auth()->user()->id)->latest()->first();
             if (!$latest_payment) {
@@ -36,7 +39,7 @@ class ExpirePayments
                 User::query()->where('id', $latest_payment->user_id)->update([
                     'subscription_status' => SubscriptionStatus::IN_ACTIVE
                 ]);
-                return redirect()->route('payments')->with('error', "Your latest subscription expired on ".$latest_payment->payment_expiry_date." . Please make a payment to activate your profile");
+                return redirect()->route('payments')->with('error', "Your latest subscription expired on " . $latest_payment->payment_expiry_date . " . Please make a payment to activate your profile");
             }
             return $next($request);
         }
