@@ -36,5 +36,6 @@
 @yield('javascripts')
 
 @include('sweetalert::alert')
+@livewireScripts
 </body>
 </html>
