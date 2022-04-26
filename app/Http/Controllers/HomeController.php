@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CDR;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -28,6 +33,7 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        return view('adminHome');
+        $data = CDR::query()->latest('datetime')->paginate(10);
+        return view('adminHome', compact('data'));
     }
 }
