@@ -20,6 +20,7 @@ class CreatePlansTable extends Migration
             $table->enum('validity_period', ['7', '14', '30'])->default('30');
             $table->string('amount');
             $table->enum('active', ['Yes', 'No'])->default('Yes');
+            $table->unsignedBigInteger('club_id');
             $table->timestamps();
         });
     }

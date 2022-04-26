@@ -36,7 +36,7 @@
                     </tr>
 
                 </table>
-                <table class="table table-sm">
+                <table class="table table-sm {{((auth()->user()->club_id==$club->id && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ) || (auth()->user()->club->name=='WarmFit' && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ))?'':'d-none'}}">
                     <tr class="modal-colored-header bg-info">
                         <th colspan="10">Members</th>
                     </tr>

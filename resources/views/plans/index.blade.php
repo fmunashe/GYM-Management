@@ -30,6 +30,7 @@
                         <table class="table table-striped table-sm">
                             <tr>
                                 <th>#</th>
+                                <th>Club</th>
                                 <th>Plan Name</th>
                                 <th>Description</th>
                                 <th>Validity Period</th>
@@ -38,8 +39,9 @@
                                 <th class="text-center" colspan="3">Action</th>
                             </tr>
                             @foreach($plans as $plan)
-                                <tr>
+                                <tr class="{{(auth()->user()->club_id==$plan->club_id || (auth()->user()->club->name=='WarmFit' && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ))?'':'d-none'}}">
                                     <td>{{$plan->id}}</td>
+                                    <td>{{$plan->club->name}}</td>
                                     <td>{{$plan->plan_name}}</td>
                                     <td>{{$plan->description}}</td>
                                     <td>{{$plan->validity_period." days"}}</td>

@@ -36,6 +36,7 @@
                                 <th>Club Name</th>
                                 <th>Description</th>
                                 <th>Location</th>
+                                <th>Total Members</th>
                                 @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                 <th class="text-center" colspan="3">Action</th>
                                     @endif
@@ -46,6 +47,7 @@
                                     <td>{{$club->name}}</td>
                                     <td>{{$club->description}}</td>
                                     <td>{{$club->location}}</td>
+                                    <td>{{$club->users_count}}</td>
                                     @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                     <td>
                                         <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
@@ -54,20 +56,24 @@
                                         </button>
                                         @include('clubs.show_club_modal')
                                     </td>
+                                    @if(((auth()->user()->club_id==$club->id && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ) || (auth()->user()->club->name=='WarmFit' && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN )))
                                     <td>
                                         <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#edit_club_modal_{{$club->id}}">
                                             <i class="uil-pen"></i>&nbsp;Edit
                                         </button>
                                         @include('clubs.edit_club_modal')
+
                                     </td>
                                     <td>
+
                                         <button class="btn btn-danger btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#delete_club_modal_{{$club->id}}">
                                             <i class="uil-trash"></i>&nbsp;Delete
                                         </button>
                                         @include('clubs.delete_club_modal')
                                     </td>
+@endif
                                     @endif
 
                                 </tr>

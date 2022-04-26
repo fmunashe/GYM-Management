@@ -29,6 +29,7 @@ class PlanRequest extends FormRequest
             'validity_period'=>'required',
             'amount'=>'required',
             'active'=>'required',
+            'club_id'=>'required',
         ];
     }
 }

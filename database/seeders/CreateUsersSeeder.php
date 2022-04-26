@@ -88,9 +88,9 @@ class CreateUsersSeeder extends Seeder
         }
 
         $memberships = [
-            ['plan_name' => 'Weekly', 'description' => 'Weekly Plan', 'validity_period' =>'7', 'amount' => 200, 'active' => 'Yes'],
-            ['plan_name' => 'Bi-Monthly', 'description' => 'Bi Monthly Plan', 'validity_period' =>'14', 'amount' => 350, 'active' => 'Yes'],
-            ['plan_name' => 'Monthly', 'description' => 'Monthly Plan', 'validity_period' => '30', 'amount' => 300, 'active' => 'Yes'],
+            ['plan_name' => 'Weekly', 'description' => 'Weekly Plan', 'validity_period' => '7', 'amount' => 200, 'active' => 'Yes', 'club_id' => $club->id],
+            ['plan_name' => 'Bi-Monthly', 'description' => 'Bi Monthly Plan', 'validity_period' => '14', 'amount' => 350, 'active' => 'Yes', 'club_id' => $club->id],
+            ['plan_name' => 'Monthly', 'description' => 'Monthly Plan', 'validity_period' => '30', 'amount' => 300, 'active' => 'Yes', 'club_id' => $club->id],
         ];
 
         foreach ($memberships as $membership) {

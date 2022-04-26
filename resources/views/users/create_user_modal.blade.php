@@ -92,7 +92,7 @@
                                     value="{{ old('club_id') }}" autocomplete="club_id" autofocus required>
                                 <option value=""></option>
                                 @foreach($clubs as $club)
-                                    <option value="{{$club->id}}">{{$club->name}}</option>
+                                    <option value="{{$club->id}}" class="{{(auth()->user()->club_id==$club->id || (auth()->user()->club->name=='WarmFit' && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ))?'':'d-none'}}">{{$club->name}}</option>
                                 @endforeach
 
                             </select>

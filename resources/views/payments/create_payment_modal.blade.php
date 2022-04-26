@@ -25,7 +25,7 @@
                             <option value="">Choose Membership Plan</option>
                             @foreach($plans as $plan)
                                 <option value="{{$plan}}" data-amount="{{$plan->amount}}"
-                                        data-validity="{{$plan->validity_period}}">{{$plan->plan_name}}</option>
+                                        data-validity="{{$plan->validity_period}}" class="{{(auth()->user()->club_id == $plan->club_id) ?'':'d-none'}}">{{$plan->plan_name}}</option>
                             @endforeach
                         </select>
                         @error('plan_id')

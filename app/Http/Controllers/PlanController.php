@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanRequest;
+use App\Models\Club;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,7 +18,8 @@ class PlanController extends Controller
     public function index()
     {
         $plans = Plan::query()->latest()->paginate(10);
-        return view('plans.index', compact('plans'));
+        $clubs =Club::all();
+        return view('plans.index', compact('plans','clubs'));
     }
 
     /**

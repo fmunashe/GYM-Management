@@ -33,7 +33,6 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        $data = CDR::query()->latest('datetime')->paginate(10);
-        return view('adminHome', compact('data'));
+        return view('adminHome');
     }
 }

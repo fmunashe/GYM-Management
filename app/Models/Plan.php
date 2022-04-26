@@ -16,9 +16,14 @@ class Plan extends Model implements Auditable
         'description',
         'validity_period',
         'amount',
-        'active'
+        'active',
+        'club_id'
     ];
 
 
+    public function club()
+    {
+        return $this->belongsTo(Club::class, 'club_id', 'id');
+    }
 
 }

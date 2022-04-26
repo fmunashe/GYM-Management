@@ -40,6 +40,10 @@
                             <td>Status :</td>
                             <td>{{$plan->active}}</td>
                         </tr>
+                        <tr>
+                            <td>Club :</td>
+                            <td>{{$plan->club->name}}</td>
+                        </tr>
 
                     </table>
 

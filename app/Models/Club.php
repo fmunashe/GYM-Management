@@ -21,4 +21,8 @@ class Club extends Model implements Auditable
     {
         return $this->hasMany(User::class);
     }
+
+    public function plans(){
+        return $this->hasMany(Plan::class);
+    }
 }
