@@ -41,6 +41,12 @@
         </a>
     </li>
     <li class="side-nav-item">
+        <a href="{{route('requisitions.index')}}" class="side-nav-link">
+            <i class="uil-anchor"></i>
+            <span>Join Club Requests </span>
+        </a>
+    </li>
+    <li class="side-nav-item">
         <a href="{{route('routines')}}" class="side-nav-link">
             <i class="uil-schedule"></i>
             <span>Training Routines </span>

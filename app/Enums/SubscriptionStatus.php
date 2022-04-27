@@ -16,5 +16,9 @@ class SubscriptionStatus extends Enum
 {
     const ACTIVE = 'active';
     const IN_ACTIVE = 'in_active';
+    const PENDING = 'Pending';
+    const APPROVED = 'Approved';
+    const REJECTED = 'Rejected';
+
     use ConstantExport;
 }

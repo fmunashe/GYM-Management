@@ -76,4 +76,11 @@ class User extends Authenticatable implements Auditable
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function requisitions()
+    {
+        return $this->hasMany(Requisition::class);
+    }
+
+
 }

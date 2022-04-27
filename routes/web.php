@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RequisitionsController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +66,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin', 'auth']], functi
 });
 
 
-Route::group(['prefix' => 'generic', 'middleware' => ['auth','payment_expired']], function () {
+Route::group(['prefix' => 'generic', 'middleware' => ['auth', 'payment_expired']], function () {
     Route::post('/save-routine', [TimeTableController::class, 'store'])->name('save-routine');
     Route::get('/clubs', [ClubController::class, 'index'])->name('clubs');
     Route::get('/plans', [PlanController::class, 'index'])->name('plans');
@@ -84,4 +85,8 @@ Route::group(['prefix' => 'payments', 'middleware' => ['auth']], function () {
     Route::delete('/delete-payment/{payment}', [PaymentController::class, 'destroy'])->name('delete-payment');
     Route::put('/payment-update/{payment}', [PaymentController::class, 'update'])->name('update-payment');
     Route::get('search-client/{search}', [PaymentController::class, 'searchClient']);
+});
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('requisitions', RequisitionsController::class);
 });
