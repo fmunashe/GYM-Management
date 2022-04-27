@@ -13,7 +13,7 @@ class RequisitionsController extends Controller
 {
     public function index()
     {
-        $requisitions = Requisition::query()->paginate(10);
+        $requisitions = Requisition::query()->orderBy('club_id')->paginate(10);
         return view('requisitions.index', compact('requisitions'));
     }
 

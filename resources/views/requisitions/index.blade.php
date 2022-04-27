@@ -35,7 +35,7 @@
 
                             </tr>
                             @foreach($requisitions as $requisition)
-                                <tr class="{{((auth()->user()->id==$requisition->user_id && auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)||(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ))?'':'d-none'}}">
+                                <tr class="{{((auth()->user()->id==$requisition->user_id && auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)||(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN && auth()->user()->club_id==$requisition->club_id))?($requisition->status==\App\Enums\SubscriptionStatus::APPROVED?'alert-success':'alert-danger'):'d-none'}}">
                                     <td>{{$requisition->id}}</td>
                                     <td>{{$requisition->user->name}}</td>
                                     <td>{{$requisition->club->name}}</td>
