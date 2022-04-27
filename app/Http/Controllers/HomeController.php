@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CDR;
+use App\Charts\Registrations;
+use App\Charts\ClubsChart;
+use App\Charts\SalesPerMonth;
+use App\Models\Club;
 use App\Models\User;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -32,12 +32,13 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function adminHome()
+    public function adminHome(ClubsChart $clubsChart, Registrations $registrations, SalesPerMonth $sales)
     {
-        $users = User::select(\DB::raw("COUNT(*) as count"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(\DB::raw("Month(created_at)"))
-            ->pluck('count');
-        return view('adminHome',compact('users'));
+
+        $registrations = $registrations->build();
+        $clubs = $clubsChart->build();
+        $sales = $sales->build();
+
+        return view('adminHome', compact('registrations', 'clubs', 'sales'));
     }
 }
