@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\SubscriptionStatus;
 use App\Enums\UserTypeEnum;
 use App\Http\Requests\RequisitionsRequest;
+use App\Models\Club;
 use App\Models\Requisition;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -33,7 +34,7 @@ class RequisitionsController extends Controller
         $club_id = $request->input('club_id');
 
         $exists = Requisition::query()->where('club_id', $club_id)->where('user_id', $user_id)->where('status', SubscriptionStatus::PENDING)->exists();
-        if ($exists) {
+        if ($exists || auth()->user()->club_id == $club_id) {
             Alert::error('Request to join club denied for ' . auth()->user()->name . '. You have a previous active request to join this club ')->autoClose(false);;
             return redirect()->back();
         }
