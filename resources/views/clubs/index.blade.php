@@ -55,7 +55,6 @@
                                         </button>
                                         @include('requisitions.create_requisition_modal')
                                     </td>
-                                    @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                         <td>
                                             <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
                                                     data-bs-target="#show_club_modal_{{$club->id}}">
@@ -63,6 +62,7 @@
                                             </button>
                                             @include('clubs.show_club_modal')
                                         </td>
+                                    @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
                                         @if(((auth()->user()->club_id==$club->id && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN ) || (auth()->user()->club->name=='WarmFit' && auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN )))
                                             <td>
                                                 <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
