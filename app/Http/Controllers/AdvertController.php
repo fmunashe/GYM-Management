@@ -49,7 +49,7 @@ class AdvertController extends Controller
         if ($request->hasFile('image_name')) {
             $image = $request->file('image_name');
             $name = Carbon::now() . "-" . $image->getClientOriginalName();
-            $destinationPath = public_path('/uploads/adverts');
+            $destinationPath = public_path('/uploads/adverts/');
             $image->move($destinationPath, $name);
             $advert->image_name = $name;
         }

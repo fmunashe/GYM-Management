@@ -16,4 +16,7 @@
 <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="light-style"/>
 <link href="{{asset('assets/css/app-dark.min.css')}}" rel="stylesheet" type="text/css" id="dark-style"/>
+<script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 @livewireStyles
+{{--@powerGridStyles--}}

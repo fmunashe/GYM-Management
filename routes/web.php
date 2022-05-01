@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin', 'auth']], functi
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::post('/save-user', [UserController::class, 'store'])->name('save-user');
+    Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('edit-user');
     Route::delete('/delete-user/{user}', [UserController::class, 'destroy'])->name('delete-user');
     Route::put('/user-update/{user}', [UserController::class, 'update'])->name('update-user');
 

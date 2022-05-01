@@ -18,6 +18,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
+                        <livewire:dashboard/>
                 </div>
             </div>
         </div>

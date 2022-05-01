@@ -26,6 +26,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+{{--                        <livewire:user-table/>--}}
                         <table class="table table-striped table-sm">
                             <tr>
                                 <th>#</th>

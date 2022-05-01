@@ -21,16 +21,8 @@
                                 </div>
                             @endif
                             <div class="row">
-                                <div class="col-md-6">
-                                    {!! $registrations->container() !!}
-                                </div>
-                                <div class="col-md-6">
-                                    {!! $clubs->container() !!}
-                                </div>
-                            </div>
-                                <div class="row">
                                 <div class="col">
-                                    {!! $sales->container() !!}
+                                    <livewire:dashboard/>
                                 </div>
                             </div>
                         </div>
@@ -39,14 +31,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('javascripts')
-    <script src="{{ $registrations->cdn() }}"></script>
-    {{ $registrations->script() }}
-
-    <script src="{{ $clubs->cdn() }}"></script>
-    {{ $clubs->script() }}
-
-    <script src="{{ $sales->cdn() }}"></script>
-    {{ $sales->script() }}
 @endsection

@@ -27,7 +27,3 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://cdn.tiny.cloud/1/axktqkq0g9l0lxuw926ft3o7df55kh35lf91y5n4002xgsw7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-<!-- Charting library -->
-<script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
-<script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
-<!-- Your application script -->
