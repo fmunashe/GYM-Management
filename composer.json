@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "arielmejiadev/larapex-charts": "^4.0",
+        "asantibanez/livewire-calendar": "^2.1",
         "asantibanez/livewire-charts": "^2.4",
         "consoletvs/charts": "7.*",
         "fruitcake/laravel-cors": "^2.0",

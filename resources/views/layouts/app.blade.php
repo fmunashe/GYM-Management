@@ -38,6 +38,7 @@
 @include('sweetalert::alert')
 @livewireScripts
 @livewireChartsScripts
-{{--@powerGridScripts--}}
+@livewireCalendarScripts
+@powerGridScripts
 </body>
 </html>
