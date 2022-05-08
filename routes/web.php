@@ -9,6 +9,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RequisitionsController;
 use App\Http\Controllers\TimeTableController;
+use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -58,12 +59,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin', 'auth']], functi
     Route::delete('/delete-user/{user}', [UserController::class, 'destroy'])->name('delete-user');
     Route::put('/user-update/{user}', [UserController::class, 'update'])->name('update-user');
 
+    Route::get('/expired-subscriptions', [TrainerController::class, 'expiredSubscriptions'])->name('expired-subscriptions');
+
     Route::get('/members', [ReportController::class, 'index'])->name('members');
     Route::post('/search-member', [ReportController::class, 'filterUsers']);
 
     Route::get('/income', [ReportController::class, 'income'])->name('income');
 
     Route::get('/audits', [ReportController::class, 'audits'])->name('audits');
+
+    Route::post('approve-payment/{payment}', [PaymentController::class, 'approvePayment'])->name('approve-payment');
 });
 
 
@@ -78,6 +83,8 @@ Route::group(['prefix' => 'generic', 'middleware' => ['auth', 'payment_expired']
     Route::post('/save-health-status', [HealthStatusController::class, 'store'])->name('save-health-status');
     Route::delete('/delete-health-status/{healthStatus}', [HealthStatusController::class, 'destroy'])->name('delete-health-status');
     Route::put('/health-status-update/{healthStatus}', [HealthStatusController::class, 'update'])->name('update-health-status');
+
+    Route::get('/trainers', [TrainerController::class, 'index'])->name('trainers');
 });
 
 Route::group(['prefix' => 'payments', 'middleware' => ['auth']], function () {

@@ -15,12 +15,19 @@ class Payment extends Model implements Auditable
         'plan_id',
         'user_id',
         'payment_date',
-        'payment_expiry_date'
+        'payment_expiry_date',
+        'payment_status',
+        'approver_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approver_id', 'id');
     }
 
     public function plan()

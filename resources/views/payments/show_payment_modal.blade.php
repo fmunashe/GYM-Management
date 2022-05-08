@@ -42,8 +42,14 @@
                         <td>Payment Expiry Date :</td>
                         <td>{{$payment->payment_expiry_date}}</td>
                     </tr>
+                    <tr>
+                        <td>Payment Status :</td>
+                        <td>{{$payment->payment_status}}</td>
+                    </tr> <tr>
+                        <td>Approved By :</td>
+                        <td>{{$payment->approver?$payment->approver->name:""}}</td>
+                    </tr>
                 </table>
-
 
             </div>
             <div class="modal-footer">

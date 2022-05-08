@@ -32,41 +32,48 @@
                         @endif
                         <table class="table table-striped table-sm">
                             <tr>
-                                <th>#</th>
-                                <th>Client</th>
-                                <th>Club</th>
-                                <th>Membership Plan</th>
-                                <th>Validity</th>
-                                <th>Amount</th>
-                                <th>Payment Date</th>
-                                <th>Payment Expiry Date</th>
-                                <th class="text-center" colspan="2">Action</th>
+                                <th class="text-nowrap">#</th>
+                                <th class="text-nowrap">Client</th>
+                                <th class="text-nowrap">Club</th>
+                                <th class="text-nowrap">Membership Plan</th>
+                                <th class="text-nowrap">Validity</th>
+                                <th class="text-nowrap">Amount</th>
+                                <th class="text-nowrap">Payment Date</th>
+                                <th class="text-nowrap">Payment Expiry Date</th>
+                                <th class="text-nowrap">Approval Status</th>
+                                <th class="text-nowrap">Approved By</th>
+                                <th class="text-center" colspan="3">Action</th>
                             </tr>
                             @foreach($payments as $payment)
                                 <tr class="{{((auth()->user()->id==$payment->user_id && auth()->user()->user_type!=\App\Enums\UserTypeEnum::ADMIN)||auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)?'':'d-none'}}">
-                                    <td>{{$payment->id}}</td>
-                                    <td>{{$payment->user?$payment->user->name:""}}</td>
-                                    <td>{{$payment->user?$payment->user->club->name:""}}</td>
-                                    <td>{{$payment->plan->plan_name}}</td>
-                                    <td>{{$payment->plan->validity_period}}</td>
-                                    <td>{{$payment->plan->amount}}</td>
-                                    <td>{{$payment->payment_date}}</td>
-                                    <td>{{$payment->payment_expiry_date}}</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
+                                    <td class="text-nowrap">{{$payment->id}}</td>
+                                    <td class="text-nowrap">{{$payment->user?$payment->user->name:""}}</td>
+                                    <td class="text-nowrap">{{$payment->user?$payment->user->club->name:""}}</td>
+                                    <td class="text-nowrap">{{$payment->plan->plan_name}}</td>
+                                    <td class="text-nowrap">{{$payment->plan->validity_period}}</td>
+                                    <td class="text-nowrap">{{$payment->plan->amount}}</td>
+                                    <td class="text-nowrap">{{$payment->payment_date}}</td>
+                                    <td class="text-nowrap">{{$payment->payment_expiry_date}}</td>
+                                    <td class="text-nowrap">{{$payment->payment_status}}</td>
+                                    <td class="text-nowrap">{{$payment->approver?$payment->approver->name:""}}</td>
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-info btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#show_payment_modal_{{$payment->id}}">
                                             <i class="uil-eye"></i>&nbsp;Show
                                         </button>
                                         @include('payments.show_payment_modal')
                                     </td>
-                                    {{--                                    <td>--}}
-                                    {{--                                        <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"--}}
-                                    {{--                                                data-bs-target="#edit_payment_modal_{{$payment->id}}">--}}
-                                    {{--                                            <i class="uil-pen"></i>&nbsp;Edit--}}
-                                    {{--                                        </button>--}}
-                                    {{--                                        @include('payments.edit_payment_modal')--}}
-                                    {{--                                    </td>--}}
-                                    <td>
+                                    @if(auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN)
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-success btn-sm py-0 px-1" data-bs-toggle="modal"
+                                                data-bs-target="#approve_payment_modal_{{$payment->id}}">
+                                            <i class="uil-file-check"></i>&nbsp;Approve
+                                        </button>
+                                        @include('payments.approve_payment_modal')
+                                    </td>
+                                    @endif
+
+                                    <td class="text-nowrap">
                                         <button class="btn btn-danger btn-sm py-0 px-1" data-bs-toggle="modal"
                                                 data-bs-target="#delete_payment_modal_{{$payment->id}}">
                                             <i class="uil-trash"></i>&nbsp;Roll Back

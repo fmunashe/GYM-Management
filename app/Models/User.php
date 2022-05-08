@@ -29,7 +29,8 @@ class User extends Authenticatable implements Auditable
         'user_type',
         'joining_date',
         'terms_and_conditions',
-        'club_id'
+        'club_id',
+        'individual_trainer'
     ];
 
     /**

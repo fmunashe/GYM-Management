@@ -43,6 +43,12 @@
                         <td>{{$user->subscription_status}}</td>
                     </tr>
                     <tr>
+                        <th>Is Individual Trainer :</th>
+                        <td>{{$user->individual_trainer}}</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <th>Club Name :</th>
                         <td>{{$user->club->name}}</td>
                         <th>Accepted Ts & Cs :</th>
@@ -51,7 +57,7 @@
 
                 </table>
 
-                <div class="row">
+                <div class="row {{auth()->user()->user_type==\App\Enums\UserTypeEnum::ADMIN?'':'d-none'}}" >
                     <div class="col">
                         <div class="card table-responsive">
                             <div class="card-header modal-colored-header bg-info">

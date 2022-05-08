@@ -46,6 +46,13 @@
             <span>Join Club Requests </span>
         </a>
     </li>
+
+    <li class="side-nav-item">
+        <a href="{{route('trainers')}}" class="side-nav-link">
+            <i class="mdi mdi-run-fast"></i>
+            <span>Individual Trainers </span>
+        </a>
+    </li>
     <li class="side-nav-item">
         <a href="{{route('routines')}}" class="side-nav-link">
             <i class="uil-schedule"></i>
@@ -69,6 +76,12 @@
             <a href="{{route('users')}}" class="side-nav-link">
                 <i class="uil-users-alt"></i>
                 <span>Members </span>
+            </a>
+        </li>
+        <li class="side-nav-item">
+            <a href="{{route('expired-subscriptions')}}" class="side-nav-link">
+                <i class="mdi mdi-exclamation"></i>
+                <span>Expired subscriptions </span>
             </a>
         </li>
     @endif

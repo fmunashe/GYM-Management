@@ -160,6 +160,20 @@
 
                     <div class="input-group input-group-sm mb-3">
                         <div class="form-check">
+                            <input type="checkbox" id="individual_trainer" name="individual_trainer"
+                                   class="form-check-input @error('individual_trainer') is-invalid @enderror" value="Yes"
+                                   autocomplete="individual_trainer" @if($user->individual_trainer=="Yes") checked @endif>
+                            <label class="form-check-label" for="terms">Is Individual Trainer?</label>
+                            @error('individual_trainer')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="form-check">
                             <input type="checkbox" id="terms" name="terms"
                                    class="form-check-input @error('terms') is-invalid @enderror" value="Yes"
                                    autocomplete="terms" checked>

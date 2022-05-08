@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('gender', ['Male', 'Female', 'Other'])->nullable();
             $table->enum('user_type', ['is_admin', 'is_member', 'is_trainer'])->nullable()->default('is_member');
+            $table->enum('individual_trainer', ['Yes', 'No'])->nullable()->default('No');
             $table->string('mobile')->nullable();
             $table->string('dob')->nullable();
             $table->timestamp('joining_date')->nullable()->default(now());

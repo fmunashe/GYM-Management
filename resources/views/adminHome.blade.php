@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">{{ __('Dashboard For Club ').auth()->user()->club->name }}</div>
                     <div class="table-responsive">
                         <div class="card-body">
                             @if (session('status'))

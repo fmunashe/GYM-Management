@@ -164,6 +164,21 @@
 
                             <div class="input-group input-group-sm mb-3">
                                 <div class="form-check">
+                                    <input type="checkbox" id="individual_trainer" name="individual_trainer"
+                                           class="form-check-input @error('individual_trainer') is-invalid @enderror"
+                                           @if(old('individual_trainer')) checked @endif value="1"
+                                           autocomplete="individual_trainer">
+                                    <label class="form-check-label" for="individual_trainer">Are You An Individual Trainer?</label>
+                                    @error('individual_trainer')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="form-check">
                                     <input type="checkbox" id="club_owner" name="club_owner"
                                            class="form-check-input @error('club_owner') is-invalid @enderror"
                                            @if(old('club_owner')) checked @endif value="1"

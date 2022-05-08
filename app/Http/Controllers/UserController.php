@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SubscriptionStatus;
 use App\Models\Club;
+use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -47,7 +49,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::query()->create($request->all());
+        $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
+        User::query()->create($data);
         Alert::success('Member Details', 'Member Successfully Created');
         return redirect()->route('users');
     }
@@ -92,6 +96,7 @@ class UserController extends Controller
             'gender' => $data['gender'],
             'dob' => $data['dob'],
             'user_type' => $data['user_type'],
+            'individual_trainer' => $data['individual_trainer'],
             'terms_and_conditions' => $data['terms'],
             'club_id' => $data['club_id']
         ]);
@@ -113,6 +118,8 @@ class UserController extends Controller
         Alert::success('Member Information', 'Member Successfully Deleted');
         return redirect()->route('users');
     }
+
+
 
 
 }

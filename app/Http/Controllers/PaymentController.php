@@ -24,7 +24,7 @@ class PaymentController extends Controller
     public function index()
     {
 
-        $payments = Payment::query()->with(['user', 'plan'])->whereHas('user',function ($query){
+        $payments = Payment::query()->with(['user', 'plan'])->whereHas('user', function ($query) {
             $query->where('club_id', auth()->user()->club->id);
         })->latest()->paginate(10);
 
@@ -60,7 +60,7 @@ class PaymentController extends Controller
 
         $check_payment = Payment::query()->where('user_id', $user_id)->latest()->first();
         if ($check_payment) {
-            if ($check_payment->payment_expiry_date > Carbon::now()) {
+            if ($check_payment->payment_expiry_date > Carbon::now() && $check_payment->payment_status != SubscriptionStatus::REJECTED) {
                 Alert::error('Payment Status Error', 'Payment could not be made. Client ' . $check_payment->user->name . ' has an active ' . $check_payment->plan->plan_name . ' subscription which expires on ' . $check_payment->payment_expiry_date)->autoClose(false);;
                 return redirect()->route('payments');
             }
@@ -73,11 +73,11 @@ class PaymentController extends Controller
             'payment_expiry_date' => $expiry
         ]);
 
-        if ($expiry > Carbon::now()) {
-            User::query()->where('id', $user_id)->update([
-                'subscription_status' => SubscriptionStatus::ACTIVE
-            ]);
-        }
+//        if ($expiry > Carbon::now()) {
+//            User::query()->where('id', $user_id)->update([
+//                'subscription_status' => SubscriptionStatus::ACTIVE
+//            ]);
+//        }
 
         Alert::success('Payment Status', 'Payment Successfully Recorded');
         return redirect()->route('payments');
@@ -146,11 +146,11 @@ class PaymentController extends Controller
             Alert::error('Payment Status', 'You have no permission to delete this record');
             return redirect()->route('health-status');
         }
-        if ($payment->payment_expiry_date > Carbon::now()) {
-            User::query()->where('id', $payment->user_id)->update([
-                'subscription_status' => SubscriptionStatus::IN_ACTIVE
-            ]);
-        }
+
+        User::query()->where('id', $payment->user_id)->update([
+            'subscription_status' => SubscriptionStatus::IN_ACTIVE
+        ]);
+
 
         $payment->delete();
         Alert::success('Payment Status', 'Payment Successfully Deleted');
@@ -178,5 +178,27 @@ class PaymentController extends Controller
             return Carbon::now()->addMonth();
         }
         return Carbon::now()->addDays(ValidityPeriodEnum::SEVEN_DAYS);
+    }
+
+    public function approvePayment(Payment $payment)
+    {
+//        dd($payment);
+
+        if (!empty($payment->approver_id)) {
+            Alert::error('You cannot approve a payment which was previously approved by ' . $payment->approver->name)->autoClose(false);
+            return redirect()->route('payments');
+        }
+
+        $payment->update([
+            'payment_status' => SubscriptionStatus::APPROVED,
+            'approver_id' => auth()->user()->id
+        ]);
+
+        User::query()->where('id', $payment->user_id)->update([
+            'subscription_status' => SubscriptionStatus::ACTIVE
+        ]);
+
+        Alert::success('Payment Status', 'Payment Successfully Approved')->autoClose(false);
+        return redirect()->route('payments');
     }
 }

@@ -92,7 +92,9 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'dob' => $data['dob'],
             'terms_and_conditions' => $data['terms'],
-            'club_id' => $club_id
+            'club_id' => $club_id,
+            'individual_trainer'=>$data['individual_trainer'],
+            'user_type'=>$data['user_type']
         ]);
     }
 }
