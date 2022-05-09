@@ -88,6 +88,10 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->all();
+        $individual_trainer = "No";
+        if (array_key_exists('individual_trainer', $data)) {
+            $individual_trainer = $data['individual_trainer'];
+        }
         $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -96,7 +100,7 @@ class UserController extends Controller
             'gender' => $data['gender'],
             'dob' => $data['dob'],
             'user_type' => $data['user_type'],
-            'individual_trainer' => $data['individual_trainer'],
+            'individual_trainer' => $individual_trainer,
             'terms_and_conditions' => $data['terms'],
             'club_id' => $data['club_id']
         ]);
@@ -118,8 +122,6 @@ class UserController extends Controller
         Alert::success('Member Information', 'Member Successfully Deleted');
         return redirect()->route('users');
     }
-
-
 
 
 }

@@ -75,6 +75,8 @@ class RegisterController extends Controller
     {
         $club_id = Club::query()->where('name', 'like', 'WarmFit%')->first()->id;
 
+        $individual_trainer = "No";
+
         if (array_key_exists('club_owner', $data)) {
             $club = Club::query()->create([
                 'name' => $data['club_name'],
@@ -83,6 +85,12 @@ class RegisterController extends Controller
             ]);
             $club_id = $club->id;
         }
+
+        if (array_key_exists('individual_trainer', $data)) {
+            $individual_trainer= $data['individual_trainer'];
+        }
+
+
 
         return User::create([
             'name' => $data['name'],
@@ -93,8 +101,8 @@ class RegisterController extends Controller
             'dob' => $data['dob'],
             'terms_and_conditions' => $data['terms'],
             'club_id' => $club_id,
-            'individual_trainer'=>$data['individual_trainer'],
-            'user_type'=>$data['user_type']
+            'individual_trainer' => $individual_trainer,
+            'user_type' => $data['user_type']
         ]);
     }
 }
